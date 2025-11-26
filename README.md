@@ -1,3 +1,5 @@
+![PDES CI](https://github.com/alinagazizova/PDES/actions/workflows/pdes-ci.yml/badge.svg)
+
 # PDES
 
 This is a project set up in order to be able to test PDES against DES.
