@@ -39,9 +39,9 @@ ENV BASE_DIR=/app \
     PATH=/app/platforms/sst-core/sst-core-install/bin:$PATH
 
 RUN apt update && apt install -y \
-    wget git build-essential automake autoconf libtool \
+    wget git build-essential automake autoconf libtool libffi-dev \
     libevent-dev hwloc libhwloc-dev libpmix-dev python3 python3-dev \
-    valgrind gfortran tar cmake libssl-dev zlib1g-dev libbz2-dev \
+    valgrind gfortran tar cmake libssl-dev zlib1g-dev libbz2-dev libc6-dev liblzma-dev\
     libreadline-dev libsqlite3-dev pkg-config libarchive-dev libexpat1-dev
 
 WORKDIR /app
