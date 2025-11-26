@@ -50,6 +50,7 @@ jobs:
           chmod +x scripts/schedule-distance.sh
           docker run \
             -v $PWD/tests/schedule-distance:/app/tests/schedule-distance \
+            -v $PWD/config:/app/config \
             ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest \
             /bin/bash -c "cd /app && ./scripts/schedule-distance.sh"
 
