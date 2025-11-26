@@ -40,7 +40,7 @@ jobs:
       - name: Mode 1 — Run only
         if: ${{ github.event.inputs.mode == '1' }}
         run: |
-          docker run --name pdes_test -d pdes:latest
+          docker run --name pdes_test -d ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest
           sleep 5
           docker logs pdes_test
 
@@ -48,7 +48,7 @@ jobs:
         if: ${{ github.event.inputs.mode == '2' }}
         run: |
           chmod +x scripts/schedule-distance.sh
-          docker run -v $PWD:/workspace pdes:latest \
+          docker run -v $PWD:/workspace ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest \
             /bin/bash -c "cd /workspace && ./scripts/schedule-distance.sh"
 
       - name: Mode 3 — Deploy (start new container)
@@ -56,19 +56,19 @@ jobs:
         run: |
           docker stop pdes-running || true
           docker rm pdes-running || true
-          docker run -d --name pdes-running -p 8080:8080 pdes:latest
+          docker run -d --name pdes-running -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest
 
       - name: Mode 4 — Rolling update
         if: ${{ github.event.inputs.mode == '4' }}
         run: |
-          docker pull pdes:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest
 
           if docker ps -q -f name=pdes-running; then
             docker stop pdes-running
             docker rm pdes-running
           fi
 
-          docker run -d --name pdes-running -p 8080:8080 pdes:latest
+          docker run -d --name pdes-running -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest
 
       - name: Upload CSV results
         if: ${{ github.event.inputs.mode == '2' }}
