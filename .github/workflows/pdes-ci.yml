@@ -48,8 +48,11 @@ jobs:
         if: ${{ github.event.inputs.mode == '2' }}
         run: |
           chmod +x scripts/schedule-distance.sh
-          docker run -v $PWD:/workspace ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest \
-            /bin/bash -c "cd /workspace && ./scripts/schedule-distance.sh"
+          docker run \
+            -v $PWD/tests/schedule-distance:/app/tests/schedule-distance \
+            ${{ secrets.DOCKERHUB_USERNAME }}/pdes:latest \
+            /bin/bash -c "cd /app && ./scripts/schedule-distance.sh"
+
 
       - name: Mode 3 — Deploy (start new container)
         if: ${{ github.event.inputs.mode == '3' }}
