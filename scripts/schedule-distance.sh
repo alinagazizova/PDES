@@ -10,6 +10,7 @@ fi
 source "$CONFIG_FILE"
 
 rm -rf $SCHEDULE_DISTANCE_RESULTS_DIR/*
+mkdir -p "$SCHEDULE_DISTANCE_RESULTS_DIR"
 
 echo "=======================Rootsim========================================"
 cd $SCHEDULE_DISTANCE_ROOTSIM_DIR
